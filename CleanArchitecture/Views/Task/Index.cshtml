@@ -5,6 +5,16 @@
     @foreach (var task in Model)
     {
         <li>@task.Title - @(task.IsCompleted ? "✅ Done" : "🕒 Pending")</li>
+
+        <form asp-action="CompletedTask" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="@task.Id" />
+            <input type="checkbox"
+                   name="isCompleted"
+                   value="true"
+                   @(task.IsCompleted ? "checked" : "")
+                   onchange="this.form.submit()" />
+        </form>
+
     }
 </ul>
 

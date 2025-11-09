@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Application.Features;
 using CleanArchitecture.Application.Features.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,13 @@ public class TaskController : Controller
 {
     private readonly ITaskRepository _repo;
     private readonly CreateTaskHandler _createHandler;
+    private readonly UpdateTaskHandler _updateTaskHandler;
 
-    public TaskController(ITaskRepository repo, CreateTaskHandler createHandler)
+    public TaskController(ITaskRepository repo, CreateTaskHandler createHandler, UpdateTaskHandler _updateTaskHandler)
     {
         _repo = repo;
         _createHandler = createHandler;
+        this._updateTaskHandler = _updateTaskHandler;
     }
 
     public async Task<IActionResult> Index()
@@ -25,6 +28,14 @@ public class TaskController : Controller
     public async Task<IActionResult> Create(string title)
     {
         await _createHandler.Handle(new CreateTaskCommand { Title = title });
+        return RedirectToAction("Index");
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> CompletedTask(int id, bool isCompleted)
+    {
+        await _updateTaskHandler.Execute(new UpdateTaskCommand { Id = id, IsCompleted = isCompleted });
         return RedirectToAction("Index");
     }
 }

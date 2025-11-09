@@ -10,17 +10,17 @@ public class CreateTaskCommand
 
 public class CreateTaskHandler
 {
-    private readonly ITaskRepository _repo;
+    private readonly ITaskRepository ITaskRepository;
 
     public CreateTaskHandler(ITaskRepository repo)
     {
-        _repo = repo;
+        ITaskRepository = repo;
     }
 
     public async Task<TaskItem> Handle(CreateTaskCommand command)
     {
         var task = new TaskItem { Title = command.Title };
-        await _repo.AddAsync(task);
+        await ITaskRepository.AddAsync(task);
         return task;
     }
 }
