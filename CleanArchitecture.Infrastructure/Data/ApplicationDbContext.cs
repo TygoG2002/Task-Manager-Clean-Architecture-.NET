@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using CleanArchitecture.Domain.Entities;
 
-namespace CleanArchitecture.Infrastructure.Data
+namespace CleanArchitecture.Infrastructure.Data;
+
+public class ApplicationDbContext : DbContext
 {
-    public class ApplicationDbContext : DbContext
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options)
-        {
-            
-        }
-
-
     }
+
+    public DbSet<TaskItem> Tasks => Set<TaskItem>();
 }
+

@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CleanArchitecture.Application.Common.Interfaces;
+using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanArchitecture.Infrastructure
+namespace CleanArchitecture.Infrastructure;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
-        {
-            return services;
-        }
+        services.AddDbContext<ApplicationDbContext>(options =>
+     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+
+        services.AddScoped<ITaskRepository, TaskRepository>();
+        return services;
     }
 }
