@@ -22,6 +22,18 @@
             <span>
                 @(task.IsCompleted ? "✅" : "")
             </span>
+
+            <span>
+
+                <form asp-action="Delete" method="post">
+
+
+					<input type="hidden" name="id" value="@task.Id" />
+					<button type="submit" style="margin-left:10px;">Delete</button>
+
+                </form>
+
+            </span>
         </li>
     }
 </ul>

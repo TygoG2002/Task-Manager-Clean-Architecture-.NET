@@ -15,6 +15,7 @@ namespace CleanArchitecture.Application
         {
             services.AddScoped<CreateTaskHandler>();
             services.AddScoped<UpdateTaskHandler>();
+            services.AddScoped<DeleteTaskHandler>();
 
             return services;
         }
