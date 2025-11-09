@@ -67,7 +67,6 @@ View (Razor)
 **Tygo Geervliet**  
 
 📬 [LinkedIn](https://www.linkedin.com/in/tygo-geervliet)  
-💻 [GitHub](https://github.com/tygogeervliet)
 
 ---
 
