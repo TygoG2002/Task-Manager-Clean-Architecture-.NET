@@ -27,9 +27,12 @@ namespace CleanArchitecture.Infrastructure.Repositories
 
         public async Task AddAsync(TaskItem task)
         {
-            _context.Tasks.Add(task);
-            await _context.SaveChangesAsync();
-        }
+            if (task.Title != null)
+            {
+                _context.Tasks.Add(task);
+                await _context.SaveChangesAsync();
+            }
+            }
 
         public async Task UpdateAsync(TaskItem task)
         {
