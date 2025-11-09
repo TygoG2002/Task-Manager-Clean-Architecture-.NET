@@ -17,8 +17,12 @@ public class CreateTaskHandler
         ITaskRepository = repo;
     }
 
-    public async Task<TaskItem> Handle(CreateTaskCommand command)
+    public async Task<TaskItem> Execute(CreateTaskCommand command)
     {
+        if (string.IsNullOrWhiteSpace(command.Title))
+        {
+            throw new ArgumentException("Task title cannot be empty.");
+        }
         var task = new TaskItem { Title = command.Title };
         await ITaskRepository.AddAsync(task);
         return task;

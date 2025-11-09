@@ -29,7 +29,7 @@ public class TaskController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(string title)
     {
-        await _createHandler.Handle(new CreateTaskCommand { Title = title });
+        await _createHandler.Execute(new CreateTaskCommand { Title = title });
         return RedirectToAction("Index");
     }
 
