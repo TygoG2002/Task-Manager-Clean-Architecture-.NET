@@ -1,24 +1,32 @@
 ﻿@model IEnumerable<CleanArchitecture.Domain.Entities.TaskItem>
 
 <h2>Tasks</h2>
+
 <ul>
     @foreach (var task in Model)
     {
-        <li>@task.Title - @(task.IsCompleted ? "✅ Done" : "🕒 Pending")</li>
+        <li class="task-item">
+            <form asp-action="CompletedTask" method="post" style="margin:0;">
+                <input type="hidden" name="id" value="@task.Id" />
+                <input type="checkbox"
+                       name="isCompleted"
+                       value="true"
+                       @(task.IsCompleted ? "checked" : "")
+                       onchange="this.form.submit()" />
+            </form>
 
-        <form asp-action="CompletedTask" method="post" style="display:inline;">
-            <input type="hidden" name="id" value="@task.Id" />
-            <input type="checkbox"
-                   name="isCompleted"
-                   value="true"
-                   @(task.IsCompleted ? "checked" : "")
-                   onchange="this.form.submit()" />
-        </form>
+            <span class="@(task.IsCompleted ? "completed" : "")">
+                @task.Title
+            </span>
 
+            <span>
+                @(task.IsCompleted ? "✅" : "")
+            </span>
+        </li>
     }
 </ul>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" style="margin-top:15px;">
     <input type="text" name="title" placeholder="New task..." />
     <button type="submit">Add</button>
 </form>
